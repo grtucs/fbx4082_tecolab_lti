@@ -1,0 +1,54 @@
+\documentclass{artigo-tecnico}
+
+\newacronym{tecolab}{TeCoLab}{\textit{Temperature Control Laboratory}}
+\newacronym{lti}{LIT}{Linear e Invariante no Tempo}
+\newacronym{pid}{PID}{Proporcional Integal Derivativo}
+\newacronym{ff}{FF}{\textit{Feed-Forward}}
+\newacronym{ess}{$E_{ss}$}{Erro em Regime Permanente}
+\newacronym{zoh}{ZOH}{\textit{Zero-Order Holder}}
+\newacronym{fopdt}{FOPDT}{\textit{First Order Plus Dead Time}}
+
+\begin{document}
+
+\twocolumn[
+\begin{@twocolumnfalse}
+\articletitle{Identificação de uma planta térmica e projeto de um controlador LIT digital para o sistema TeCoLab}
+
+\articleauthors{%
+  Mazzarotto, Gabriel Tomazzoni\textsuperscript{*1};~%
+  Tavares, Gabriel Rodrigues\textsuperscript{*1};%
+}
+
+\begin{affiliations}
+\affiliation{1}{Área de Ciências Exatas e Engenharias, UCS}{atendimento@ucs.br}
+\correspondence{Rua Francisco Getúlio Vargas, 1130, Petrópolis, Caxias do Sul, Rio Grande do Sul, Brasil, 95070-560.}
+\end{affiliations}
+
+\input{content/resumo.tex}
+% \input{content/abstract.tex}
+\end{@twocolumnfalse}
+]
+
+\glsresetall
+\section{Introdução}
+\input{content/1_introdução.tex}
+
+\section{Modelagem e identificação da planta}
+\input{content/2_modelagem_e_identificação_da_planta.tex}
+
+\section{Projeto do controlador}
+\input{content/3_projeto_do_controlador.tex}
+
+\section{Resultado das simulações}
+\input{content/4_resultados_das_simulações.tex}
+
+\section{Resultados experimentais}
+\input{content/5_resultados_experimentais.tex}
+
+\section{Comparação entre simulação e experimento}
+\input{content/6_comparação_entre_simulação_e_experimento.tex}
+
+\section{Análise das discrepâncias observadas}
+\input{content/7_análise_das_discrepâncias_observadas.tex}
+
+\end{document}
