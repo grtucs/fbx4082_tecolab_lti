@@ -65,7 +65,9 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
-out/
+out/*
+!out/
+!out/main.pdf
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -869,4 +871,3 @@ GitHub.sublime-settings
 
 # LaTeX build output folders
 aux/
-out/
