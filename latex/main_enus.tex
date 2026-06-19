@@ -1,0 +1,101 @@
+%==============================================================================
+%
+% Scientia cum Industria - LaTeX Template V. 1.1
+%
+%==============================================================================
+\documentclass[journal,twoside,a4paper]{SCIndustria}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage[hidelinks]{hyperref}
+\usepackage[acronym,nomain]{glossaries}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{siunitx}
+\usepackage{float}
+
+\NewDocumentCommand{\xref}{m m}{\hyperref[#1]{#2}}
+
+\NewDocumentCommand{\Eqref}{m}{\Cref{#1}}
+\NewDocumentCommand{\eqlabel}{m}{\label{#1}}
+% There is an \eqref from amsmath I'm overriding here
+\RenewDocumentCommand{\eqref}{m}{\cref{#1}}
+
+\NewDocumentCommand{\figlabel}{m}{\label{#1}}
+\NewDocumentCommand{\Figref}{m}{\Cref{#1}}
+\NewDocumentCommand{\figref}{m}{\cref{#1}}
+
+\NewDocumentCommand{\tablabel}{m}{\label{#1}}
+\NewDocumentCommand{\Tabref}{m}{\Cref{#1}}
+\NewDocumentCommand{\tabref}{m}{\cref{#1}}
+
+\newacronym{tecolab}{TeCoLab}{Temperature Control Laboratory}
+\newacronym{lti}{LTI}{Linear Time-Invariant}
+\newacronym{pid}{PID}{Proportional Integral Derivative}
+\newacronym{pd}{PD}{Proportional Derivative}
+\newacronym{ff}{FF}{Feed-Forward}
+\newacronym{ess}{$E_{ss}$}{Steady-State Error}
+\newacronym{zoh}{ZOH}{Zero-Order Hold}
+\newacronym{fopdt}{FOPDT}{First Order Plus Dead Time}
+\newacronym{rmse}{RMSE}{Root Mean Squared Error}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\markboth
+{Universidade de Caxias do Sul, v. X, n. Y, pp. PP –- PP, 2026} {Universidade de
+Caxias do Sul, v. X, n. Y, pp. PP –- PP, 2026}
+
+\begin{document}
+\title{Identification of the dynamics of a thermal plant and designing a digital LTI controller for the TeCoLab system}
+
+\author{Gabriel Rodrigues Tavares, Gabriel Tomazzoni Mazzarotto}
+
+\twocolumn[
+\begin{@twocolumnfalse}
+
+\maketitle
+\blfootnote{}
+\blfootnote{Data de envio: 18/06/2026}
+\blfootnote{Data de aceite: 18/06/2026}
+\vspace{-1cm}
+\input{content/en-us/abstract.tex}
+\vspace{.5cm}
+\end{@twocolumnfalse}
+] { \renewcommand{\thefootnote}%
+    {\fnsymbol{footnote}}
+
+\glsresetall%
+\section{Introduction}
+\input{content/en-us/1_introduction}
+
+\section{Plant modeling and identification}
+\input{content/en-us/2_plant_modeling_and_identification}
+
+\section{Controller design}
+\input{content/en-us/3_controller_design}
+
+\section{Simulation results}
+\input{content/en-us/4_simulation_results}
+
+\section{Experimental results}
+\input{content/en-us/5_experimental_results}
+
+\section{Comparison between simulation and experimental results}
+\input{content/en-us/6_comparison_between_simulation_and_experimental_results}
+
+\section{Analysis of the observed discrepancies}
+\input{content/en-us/7_analysis_of_the_observed_discrepancies}
+
+\section{References}
+\bibliographystyle{IEEEbib}
+\bibliography{my_refs}
+
+\end{document}

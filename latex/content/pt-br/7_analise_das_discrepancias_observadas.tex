@@ -1,0 +1,20 @@
+A diferença observada entre os valores de \gls{rmse} simulado e experimental
+pode ser atribuída a fatores não considerados pelo modelo \gls{fopdt} utilizado
+no projeto. Entre as principais causas estão o ruído de medição dos sensores, os
+atrasos de transporte e a dinâmica térmica não modelada da planta física.
+
+Outra fonte de discrepância decorre da própria estrutura do sistema, onde o
+controlador utiliza a medição do sensor 1 para a realimentação, enquanto o erro
+é calculado com base na temperatura medida pelo sensor 2. A diferença de
+localização entre os sensores introduz um atraso entre a variável controlada e a
+variável de interesse, o que não foi totalmente representado no modelo utilizado no projeto.
+
+A perturbação introduzida aos 10 minutos, decorrente do acionamento do
+ventilador, também contribuiu para o aumento do erro experimental, uma vez que
+seu efeito real sobre a planta difere da representação simplificada adotada na
+simulação.
+
+Apesar dessas divergências, a proximidade entre os valores de
+\gls{rmse} confirma que o modelo identificado representa adequadamente o
+comportamento da planta e que a estratégia de controle proposta mantém bom
+desempenho no seguimento da referência, também em condições experimentais.

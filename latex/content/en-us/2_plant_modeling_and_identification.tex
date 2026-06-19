@@ -1,0 +1,18 @@
+From a step-response test with an input amplitude of $50^\circ\mathrm{C}$
+applied to heater 1, the plant dynamics were identified. The feedback signal is
+based on sensor 1, while the tracking objective refers to the relative
+temperature measured by sensor 2. The Ziegler-Nichols step-response method was
+adopted using a \gls{fopdt} model, yielding an approximation for each sensor, as
+given by \Eqref{planta-sensor-1-zn,planta-sensor-2-zn}:
+
+\begin{align}
+\eqlabel{planta-sensor-1-zn}
+G_{1}(s) &= \frac{0.92}{188.03s + 1} \cdot e^{-6.37s}\\
+\eqlabel{planta-sensor-2-zn}
+G_{2}(s) &= \frac{0.91}{183.94s + 1} \cdot e^{-11.66s}
+\end{align}
+
+The sensor 1 model, which was used for controller design, was discretized using
+\gls{zoh} with $T_s = \SI{15}{\second}$, resulting in \Eqref{planta-gz-zoh}.
+
+The model was evaluated by comparing the step response of the \gls{fopdt} model with the experimental data, showing good agreement in both the static gain and the identified time constant.
