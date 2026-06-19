@@ -1,54 +1,103 @@
-\documentclass{artigo-tecnico}
+%==============================================================================
+%
+% Scientia cum Industria - LaTeX Template V. 1.1
+%
+%==============================================================================
+\documentclass[journal,twoside,a4paper]{SCIndustria}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage[hidelinks]{hyperref}
+\usepackage[acronym,nomain]{glossaries}
+\usepackage[brazilian,nameinlink,noabbrev]{cleveref}
+\usepackage{siunitx}
+\usepackage{float}
+
+\NewDocumentCommand{\xref}{m m}{\hyperref[#1]{#2}}
+
+\NewDocumentCommand{\Eqref}{m}{\Cref{#1}}
+\NewDocumentCommand{\eqlabel}{m}{\label{#1}}
+% There is an \eqref from amsmath I'm overriding here
+\RenewDocumentCommand{\eqref}{m}{\cref{#1}}
+
+\NewDocumentCommand{\figlabel}{m}{\label{#1}}
+\NewDocumentCommand{\Figref}{m}{\Cref{#1}}
+\NewDocumentCommand{\figref}{m}{\cref{#1}}
+
+\NewDocumentCommand{\tablabel}{m}{\label{#1}}
+\NewDocumentCommand{\Tabref}{m}{\Cref{#1}}
+\NewDocumentCommand{\tabref}{m}{\cref{#1}}
 
 \newacronym{tecolab}{TeCoLab}{\textit{Temperature Control Laboratory}}
-\newacronym{lti}{LIT}{Linear e Invariante no Tempo}
-\newacronym{pid}{PID}{Proporcional Integal Derivativo}
+\newacronym{lti}{LIT}{Linear Invariante no Tempo}
+\newacronym{pid}{PID}{Proporcional Integral Derivativo}
+\newacronym{pd}{PD}{Proporcional Derivativo}
 \newacronym{ff}{FF}{\textit{Feed-Forward}}
 \newacronym{ess}{$E_{ss}$}{Erro em Regime Permanente}
 \newacronym{zoh}{ZOH}{\textit{Zero-Order Holder}}
 \newacronym{fopdt}{FOPDT}{\textit{First Order Plus Dead Time}}
+\newacronym{rmse}{RMSE}{\textit{Root Mean Squared Error}}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\markboth
+{Universidade de Caxias do Sul, v. X, n. Y, pp. PP –- PP, 2026}
+{Universidade de Caxias do Sul, v. X, n. Y, pp. PP –- PP, 2026}
 
 \begin{document}
+\title{Identificação de uma planta térmica e projeto de um controlador LIT digital para o sistema TeCoLab}
+
+\author{Gabriel Rodrigues Tavares, Gabriel Tomazzoni Mazzarotto}
 
 \twocolumn[
 \begin{@twocolumnfalse}
-\articletitle{Identificação de uma planta térmica e projeto de um controlador LIT digital para o sistema TeCoLab}
 
-\articleauthors{%
-  Mazzarotto, Gabriel Tomazzoni\textsuperscript{*1};~%
-  Tavares, Gabriel Rodrigues\textsuperscript{*1};%
-}
-
-\begin{affiliations}
-\affiliation{1}{Área de Ciências Exatas e Engenharias, UCS}{atendimento@ucs.br}
-\correspondence{Rua Francisco Getúlio Vargas, 1130, Petrópolis, Caxias do Sul, Rio Grande do Sul, Brasil, 95070-560.}
-\end{affiliations}
-
+\maketitle
+\blfootnote{}
+\blfootnote{Data de envio: 18/06/2026}
+\blfootnote{Data de aceite: 18/06/2026}
+\vspace{-1cm}
 \input{content/resumo.tex}
-% \input{content/abstract.tex}
+\vspace{.5cm}
 \end{@twocolumnfalse}
 ]
+{
+  \renewcommand{\thefootnote}%
+    {\fnsymbol{footnote}}
 
-\glsresetall
+\glsresetall%
 \section{Introdução}
-\input{content/1_introdução.tex}
+\input{content/1_introducao}
 
 \section{Modelagem e identificação da planta}
-\input{content/2_modelagem_e_identificação_da_planta.tex}
+\input{content/2_modelagem_e_identificacao_da_planta}
 
 \section{Projeto do controlador}
-\input{content/3_projeto_do_controlador.tex}
+\input{content/3_projeto_do_controlador}
 
 \section{Resultado das simulações}
-\input{content/4_resultados_das_simulações.tex}
+\input{content/4_resultados_das_simulacoes}
 
 \section{Resultados experimentais}
-\input{content/5_resultados_experimentais.tex}
+\input{content/5_resultados_experimentais}
 
 \section{Comparação entre simulação e experimento}
-\input{content/6_comparação_entre_simulação_e_experimento.tex}
+\input{content/6_comparacao_entre_simulacao_e_experimento}
 
 \section{Análise das discrepâncias observadas}
-\input{content/7_análise_das_discrepâncias_observadas.tex}
+\input{content/7_analise_das_discrepancias_observadas}
+
+\section{Referências bibliográficas}
+\bibliographystyle{IEEEbib}
+\bibliography{my_refs}
 
 \end{document}

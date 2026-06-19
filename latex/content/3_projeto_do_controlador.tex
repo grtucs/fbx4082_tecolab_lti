@@ -1,42 +1,63 @@
-Para o projeto do controlador utilizamos uma estrutura \gls{pid} na forma
-paralela com os valores sintonizados a partir do ensaio ao degrau de
-Ziegler-Nichols utilizando a planta do sensor 1 pela \Eqref{planta-sensor-1-zn}
-em tempo contínuo, de acordo com a \Eqref{controlador-pid-paralelo}:
+O controlador foi projetado com uma estrutura \gls{pd} paralela. Os ganhos
+iniciais foram obtidos pelo método de Ziegler-Nichols a partir da
+\Eqref{planta-sensor-1-zn} e posteriormente ajustados utilizando o
+\gls{rmse}, de acordo com a \Eqref{rmse}, como critério de desempenho.
 
 \begin{equation}
-  \eqlabel{controlador-pid-paralelo}
-  C_{\mathrm{pid}}(s) = 9.53 + \frac{0.043}{s} + \frac{583s}{s+100}
+  \eqlabel{rmse}
+  \mathrm{RMSE} = \sqrt{\frac{1}{N}\sum_{k=1}^{N}{\left( r[k] - y[k] \right)}^{2}}
 \end{equation}
 
-Apesar do \gls{pid} ter demonstrado boa estabilidade, rapidez na resposta e
-rejeição a perturbações, ainda havia um \gls{ess} considerável ao tentar
-acompanhar a curva de referência, principalmente no início da dinâmica com a
-rampa. 
+O controlador \gls{pd} obtido é dado por \Eqref{controlador-pd-paralelo}.
 
-Para melhorar esse desempenho optamos por adotar uma segunda estrutura de
-\gls{ff} utilizando o modelo inverso da planta da \Eqref{planta-sensor-1-zn} em
-paralelo com o \gls{pid}, juntamente com um filtro passa-baixas para garantir
-causalidade, resultando na \Eqref{controlador-ff}. Dessa forma, conseguimos
-antecipar a ação de controle necessária para obter um melhor acompanhamento da
-referência.
+\begin{equation}
+  \eqlabel{controlador-pd-paralelo}
+  C_{\mathrm{pd}}(s) = 13.472 + \frac{601.4s}{s+100}
+\end{equation}
+
+Apesar do bom desempenho dinâmico, o controlador \gls{pd} apresentou
+\gls{ess} significativo durante o seguimento da referência.
+
+Para reduzir esse erro, foi adicionada uma ação \gls{ff} baseada em um modelo
+inverso da planta combinado com um filtro que define a dinâmica desejada em
+malha fechada~\cite{scamarcio2020antijerk,bruce2005powertrain,karikomi2006shaking,yamaura2014output,kawamura2011leaf}.
+Esse tipo de controle utiliza o modelo do processo para antecipar a ação
+necessária ao seguimento da referência~\cite{astrom2021feedback}.
+
+Neste trabalho o \gls{ff} foi implementado com o modelo inverso da planta da
+\Eqref{planta-sensor-1-zn} em paralelo com o \gls{pd}, além de um filtro
+passa-baixas para garantir causalidade. O controlador resultante é dado por
+\Eqref{controlador-ff}:
 
 \begin{equation}
   \eqlabel{controlador-ff}
-  C_{\mathrm{ff}} = \frac{188.0271s + 1}{92 s + 0.92}
+  C_{\mathrm{ff}} = \frac{188.0271s + 1}{6.075 s + 0.92}
 \end{equation}
 
-A estrutura completa do controlador é apresentada na \Figref{bloco-controlador}.
-Nessa configuração, a ação do \gls{ff} atua diretamente sobre a referência,
-enquanto a ação do \gls{pid} é responsável pela correção baseada na
-realimentação do sistema.
+A \Figref{bloco-controlador} mostra a estrutura completa do controlador. Nela, o
+\gls{ff} atua diretamente sobre a referência, enquanto o \gls{pd} corrige o erro
+pela realimentação do sistema.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\linewidth]{images/Bloco Controlador.pdf}
+\includegraphics[width=0.9\linewidth]{images/Bloco Controlador.pdf}
 \caption{Estrutura do controlador proposto, composta por uma ação \gls{ff}
-aplicada à referência e uma ação \gls{pid} baseada na realimentação do sistema.}
+aplicada à referência e uma ação \gls{pd} baseada na realimentação do sistema.}
 \figlabel{bloco-controlador}
 \end{figure}
 
-Para a discretização do controlador utilizamos o método de Tustin para ambas as
-ações de controle do \gls{pid} e \gls{ff}. 
+O controlador foi discretizado pelo método de Tustin, aplicado às ações \gls{pd}
+e \gls{ff}. Nesse método, o operador contínuo $s$ é aproximado pela
+transformação bilinear (\Eqref{tustin})
+\begin{equation}
+  \eqlabel{tustin}
+  s \approx \frac{2}{T_s}\frac{z-1}{z+1},
+\end{equation}
+em que $T_s$ é o período de amostragem definido como $T_s = \SI{15}{\second}$.
+O modelo da planta foi discretizado por \gls{zoh}, resultando na
+\Eqref{planta-gz-zoh}.
+
+\begin{equation}
+  \eqlabel{planta-gz-zoh}
+  G(z) = z^{-1} \cdot \frac{0.0413z + 0.0293}{z - 0.9233}
+\end{equation}
