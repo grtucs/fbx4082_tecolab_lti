@@ -10,6 +10,11 @@ reference signal. The controller performance was evaluated through simulations
 and experimental validation and quantified using the Root Mean Squared Error
 performance metric.
 
+### Palavras-chave
+
+digital control, Ziegler--Nichols, PID controller, _feed-forward_, TeCoLab,
+thermal plant
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -21,9 +26,9 @@ performance metric.
 - [Analysis of the observed discrepancies](#analysis-of-the-observed-discrepancies)
 - [References](#references)
 - [Project structure](#project-structure)
-  - [Latex file](#latex-files)
-  - [Matlab file](#matlab-files)
-  - [Python file](#python-files)
+  - [Latex files](#latex-files)
+  - [Matlab files](#matlab-files)
+  - [Python files](#python-files)
 
 ## Introduction
 
@@ -35,7 +40,7 @@ reference signal with the smallest possible error, taking zero steady-state
 error as the ideal performance criterion.
 
 To achieve this objective, plant identification techniques based on sensor
-measurements will be employed, including the Ziegler-Nichols step-response
+measurements will be employed, including the Ziegler--Nichols step-response
 method. In addition, Linear Time-Invariant control strategies, such as
 Proportional Integral Derivative control, will be used to obtain the best
 possible tracking performance with respect to the reference signal.
@@ -50,9 +55,17 @@ From a step-response test with an input amplitude of $50^\circ\mathrm{C}$
 applied to heater 1, the plant dynamics were identified. The feedback signal is
 based on sensor 1, while the tracking objective refers to the relative
 temperature measured by sensor 2. The Ziegler-Nichols step-response method was
-adopted using a First Order Plus Dead Time model, yielding an approximation for
-each sensor, as given by [Equation 1](#equation-1) and
-[Equation 2](#equation-2):
+adopted using a First Order Plus Dead Time model as suggests
+[Figure 1](#figure-1).
+
+###### Figure 1
+
+![Plant dynamics based on the Ziegler-Nichols approximation for sensor 1.](./gh/images/ZieglerNichols.svg)
+
+**Plant dynamics based on the Ziegler-Nichols approximation for sensor 1.**
+
+Yielding an approximation for each sensor, as given by
+[Equation 1](#equation-1) and [Equation 2](#equation-2):
 
 ###### Equation 1
 
@@ -77,7 +90,7 @@ static gain and the identified time constant.
 ## Controller design
 
 The controller was designed using a parallel Proportional Derivative structure.
-The initial gains were obtained using the Ziegler-Nichols tuning method based
+The initial gains were obtained using the Ziegler--Nichols tuning method based
 on [Equation 1](#equation-1) and were subsequently refined using the Root Mean
 Squared Error, defined by [Equation 3](#equation-3), as the performance
 criterion.
@@ -119,12 +132,12 @@ $$
 C_{\mathrm{ff}} = \frac{188.0271s + 1}{6.075 s + 0.92}
 $$
 
-[Figure 1](#figure-1) shows the complete control structure. The Feed-Forward
+[Figure 2](#figure-2) shows the complete control structure. The Feed-Forward
 controller acts directly on the reference signal, while the Proportional
 Derivative controller compensates for the tracking error through system
 feedback.
 
-###### Figure 1
+###### Figure 2
 
 ![Proposed control structure composed of a Feed-Forward action applied to the reference signal and a Proportional Derivative action based on system feedback.](./gh/images/Bloco-Controlador.svg)
 
@@ -174,45 +187,42 @@ simulations, maintaining a low tracking error throughout the experiment.
 
 ## Comparison between simulation and experimental results
 
-[Figure 2](#figure-2) compares the simulation and experimental results obtained
+[Figure 3](#figure-3) compares the simulation and experimental results obtained
 for the same reference signal. Using the Root Mean Squared Error metric from
 [Equation 3](#equation-3) to evaluate the tracking error of the relative
 temperature measured by sensor 2.
 
-The simulated system achieved an $\mathrm{RMSE} = 1.3567\ ^\circ\mathrm{C}$,
+The simulated system achieved an $\mathrm{RMSE} = 1.5930\,^\circ\mathrm{C}$,
 while the experimental test resulted in an
-$\mathrm{RMSE} = 2.2956\ ^\circ\mathrm{C}$. In both cases, the combined
+$\mathrm{RMSE} = 2.2956\,^\circ\mathrm{C}$*. In both cases, the combined
 Proportional Derivative and Feed-Forward control strategy was able to track the
 reference signal during both the ramp transient and steady-state regimes at
 $40\,^\circ\mathrm{C}$, recovering from the disturbance introduced at the
 10-minute mark.
 
-The approximately $0.94\ ^\circ\mathrm{C}$ increase in the experimental Root
-Mean Squared Error compared with the simulated result indicates good agreement
-between the model and the physical system, although the experimental
-performance was slightly worse than that predicted by simulation.
-
-###### Figure 2
+###### Figure 3
 
 ![Comparison between the simulated and experimental results for tracking the relative temperature reference measured by sensor 2.](./gh/images/Resultados.svg)
 
 **Comparison between the simulated and experimental results for tracking the
 relative temperature reference measured by sensor 2.**
 
+\* In the practical experiment, we obtained a lower than expected performance
+    due to an implementation error in the controller, where $\tau = 77$ was used
+    instead of $\tau = 188.03$ on Feed-Forward. The $\mathrm{RMSE}$ value was
+    calculated based on this erroneous implementation.
+
 ## Analysis of the observed discrepancies
 
 The difference between the simulated and experimental Root Mean Squared Error
-values can be attributed to factors not considered in the First Order Plus Dead
-Time model used for the controller design. The main sources of discrepancy
-include sensor measurement noise, transport delays, and unmodeled thermal
-dynamics of the physical plant.
+values was relatively small. The observed discrepancy can be attributed to
+factors not considered in the First Order Plus Dead Time model used for the
+controller design. The main sources of discrepancy include sensor measurement
+noise, transport delays, and unmodeled thermal dynamics of the physical plant.
 
 Another source of discrepancy arises from the system architecture itself, in
 which the controller uses the measurement from Sensor 1 for feedback, while the
-error is computed based on the temperature measured by Sensor 2. The spatial
-separation between the sensors introduces a delay between the controlled
-variable and the variable of interest, which was not fully captured by the
-model employed in the design process.
+error is computed based on the temperature measured by Sensor 2.
 
 The disturbance introduced at 10 minutes, resulting from the activation of a
 fan, also contributed to the increase in the experimental error, since its
@@ -228,8 +238,8 @@ well.
 ## References
 
 [1] Karl Johan Åström and Richard M. Murray, _Feedback Systems: An Introduction
-for Scientists and Engineers_, 2nd ed., Princeton
-University Press, Princeton, 2021.
+for Scientists and Engineers_, 2nd ed., Princeton University Press, 
+Princeton, 2021.
 
 [2] Dale E. Seborg, Thomas F. Edgar, Duncan A. Mellichamp, and Francis J.
 Doyle, _Process Dynamics and Control_, 4th ed., Wiley, Hoboken, NJ, 2016.
@@ -239,10 +249,12 @@ Doyle, _Process Dynamics and Control_, 4th ed., Wiley, Hoboken, NJ, 2016.
 ## Project structure
 
 ### Latex files
+
 - `latex/`: contains the paper sources, bibliography, class file, figures, and
   related files.
 
 ### Matlab files
+
 - `matlab/`: contains the scripts, Simulink models, datasets, and helper
   packages used for plant identification, controller tuning, and simulation.
 - `matlab/0-Ziegler Nichols/`: contains the script used to analyze the
@@ -260,6 +272,8 @@ Doyle, _Process Dynamics and Control_, 4th ed., Wiley, Hoboken, NJ, 2016.
   reference, and experimental response data.
 
 ### Python files
+
 - `py/`: contains the Python implementation used in the physical experiment.
   The main file is `py/PID_FF.py`, which implements the Proportional Derivative
-  plus Feed-Forward controller deployed on [TeCoLab](https://github.com/ytcsc/TeCoLab).
+  plus Feed-Forward controller deployed on
+  [TeCoLab](https://github.com/ytcsc/TeCoLab).

@@ -44,7 +44,7 @@ Lb = 6.603425;
 N  = 100.000000;
 
 % Discretizando as funcoes
-ff_s = tf([Tau 1], [K*Lb K]);
+ff_s = tf([77 1], [K*Lb K]);
 ff_z = c2d(ff_s, Ts, "tustin");
 
 % Extraindo o numerador/denominador da FF(s)
@@ -77,5 +77,7 @@ plot(output.y.Time, output.y.Data, "LineWidth", 1.5, "DisplayName", "Simulação
 hold on; grid on; box on;
 plot(exp_ref.Time, exp_ref.Data, "LineWidth", 1.5, "DisplayName", "Experimento");
 legend('Location', 'best');
+xlabel('Tempo (s)');
+ylabel('Temperatura (°C)');
 xlim([0 900]);
 ylim([-5 45]);

@@ -13,9 +13,9 @@ function plot(t, y, L, info)
 
     figure;
 
-    plot(t, y, "DisplayName", "Amostragem");
+    plot(t, y, "DisplayName", "Amostragem", "LineWidth", 1.5);
     hold on;
-    plot(t, ymean, "DisplayName", "Amostragem filtrada");
+    plot(t, ymean, "DisplayName", "Amostragem filtrada", "LineWidth", 1.5);
     plot(t, reta_tangente, '--', 'Color', 'm', ...
         'DisplayName', 'Reta tangente');
 

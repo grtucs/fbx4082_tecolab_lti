@@ -2,7 +2,17 @@ A partir de um ensaio ao degrau, com entrada de amplitude $50^\circ\mathrm{C}$
 aplicada ao aquecedor 1, identificou-se a dinâmica da planta. A realimentação
 baseia-se no sensor 1, enquanto o objetivo de seguimento refere-se à temperatura
 relativa registrada pelo sensor 2. Adotou-se a abordagem de Ziegler-Nichols por
-ensaio ao degrau com um modelo \gls{fopdt}, obtendo-se uma aproximação para cada
+ensaio ao degrau com um modelo \gls{fopdt} como demonstrado na
+\Figref{dinamica-zn} para o sensor 1.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{images/pt-br/ZieglerNichols.pdf}
+\caption{Gráfico da dinâmica da planta pela aproximação de Ziegler-Nichols para o sensor 1.}
+\figlabel{dinamica-zn}
+\end{figure}
+
+Obtendo-se uma aproximação para cada
 sensor, conforme a \Eqref{planta-sensor-1-zn,planta-sensor-2-zn}:
 
 \begin{align}

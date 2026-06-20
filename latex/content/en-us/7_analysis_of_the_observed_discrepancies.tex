@@ -1,15 +1,12 @@
-The difference between the simulated and experimental \gls{rmse} values
-can be attributed to factors not considered in the \gls{fopdt} model used for
-the controller design. The main sources of discrepancy include sensor
-measurement noise, transport delays, and unmodeled thermal dynamics of the
-physical plant.
+The difference between the simulated and experimental \gls{rmse} values was
+relatively small. The observed discrepancy can be attributed to factors not
+considered in the \gls{fopdt} model used for the controller design. The main
+sources of discrepancy include sensor measurement noise, transport delays, and
+unmodeled thermal dynamics of the physical plant.
 
 Another source of discrepancy arises from the system architecture itself, in
 which the controller uses the measurement from Sensor 1 for feedback, while the
-error is computed based on the temperature measured by Sensor 2. The spatial
-separation between the sensors introduces a delay between the controlled
-variable and the variable of interest, which was not fully captured by the model
-employed in the design process.
+error is computed based on the temperature measured by Sensor 2.
 
 The disturbance introduced at 10 minutes, resulting from the activation of a
 fan, also contributed to the increase in the experimental error, since its
