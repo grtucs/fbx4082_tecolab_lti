@@ -106,7 +106,8 @@ class Controller(Controller):
     self.Lb = 6.603425
 
     # Valores de Zieger-Nichols
-    self.Tau = 188.0271
+#     self.Tau = 188.0271
+    self.Tau = 77.0
     self.K = 0.92
 
     self.feed_forward = FeedForwardTustin(self.Tau, self.K, self.Lb, self.Ts)
